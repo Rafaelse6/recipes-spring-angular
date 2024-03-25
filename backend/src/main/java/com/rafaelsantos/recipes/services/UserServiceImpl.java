@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Override
     public User findUserById(Long userId) throws Exception {
         Optional<User> opt = userRepository.findById(userId);

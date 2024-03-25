@@ -5,11 +5,13 @@ import com.rafaelsantos.recipes.models.Recipe;
 import com.rafaelsantos.recipes.models.User;
 import com.rafaelsantos.recipes.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RecipeServiceImplementation implements RecipeService{
 
     @Autowired
@@ -75,6 +77,6 @@ public class RecipeServiceImplementation implements RecipeService{
             recipe.getLikes().add(user.getId());
         }
 
-        return null;
+        return recipe;
     }
 }

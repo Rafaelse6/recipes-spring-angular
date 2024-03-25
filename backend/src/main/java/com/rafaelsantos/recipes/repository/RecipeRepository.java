@@ -1,2 +1,7 @@
-package com.rafaelsantos.recipes.repository;public interface RecipeRepository {
+package com.rafaelsantos.recipes.repository;
+
+import com.rafaelsantos.recipes.models.Recipe;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 }

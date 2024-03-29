@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class RecipeController {
@@ -23,15 +22,16 @@ public class RecipeController {
     public List<Recipe> getAllRecipes() {
         return recipeService.findAllRecipes();
     }
+
     @GetMapping("/api/recipes/{id}")
     public Recipe findRecipeById(@PathVariable Long id) throws Exception {
         return recipeService.findRecipeById(id);
     }
 
-    @PostMapping("/api/recipes/user/{userId}")
-    public Recipe createRecipe(@RequestBody Recipe recipe, @PathVariable Long userId) throws Exception {
+    @PostMapping("/api/recipes")
+    public Recipe createRecipe(@RequestBody Recipe recipe, @RequestHeader("Authorization") String jwt) throws Exception {
 
-        User user = userService.findUserById(userId);
+        User user = userService.findUserByJwt(jwt);
 
         return recipeService.createRecipe(recipe, user);
     }
@@ -42,17 +42,17 @@ public class RecipeController {
         return recipeService.updateRecipe(recipe, id);
     }
 
-    @DeleteMapping ("/api/recipes/{recipeId}")
-    public String deleteRecipe( @PathVariable Long recipeId) throws Exception {
+    @DeleteMapping("/api/recipes/{recipeId}")
+    public String deleteRecipe(@PathVariable Long recipeId) throws Exception {
 
         recipeService.deleteRecipe(recipeId);
         return "Recipe delete successfully";
     }
 
-    @PutMapping("/api/recipes/{id}/user/{userId}")
-    public Recipe likeRecipe(@PathVariable Long userId, @PathVariable Long id) throws Exception {
+    @PutMapping("/api/recipes/{id}/like")
+    public Recipe likeRecipe(@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
 
-        User user = userService.findUserById(userId);
+        User user = userService.findUserByJwt(jwt);
 
         return recipeService.likeRecipe(id, user);
     }

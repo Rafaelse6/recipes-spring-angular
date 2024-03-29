@@ -9,4 +9,6 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     public User findUserById(Long userId) throws Exception;
+
+    public User findUserByJwt(String jwt) throws Exception;
 }

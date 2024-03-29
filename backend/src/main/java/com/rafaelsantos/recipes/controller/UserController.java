@@ -1,17 +1,25 @@
 package com.rafaelsantos.recipes.controller;
 
 import com.rafaelsantos.recipes.models.User;
-import com.rafaelsantos.recipes.repository.UserRepository;
+import com.rafaelsantos.recipes.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
 
     @Autowired
+    private UserService userService;
+
+    @GetMapping("/api/users/profile")
+    public User findUserByJwt(@RequestHeader("Authorization") String jwt) throws Exception {
+        return userService.findUserByJwt(jwt);
+    }
+
+
+    /*@Autowired
     private UserRepository userRepository;
 
     @GetMapping("/users")
@@ -46,7 +54,7 @@ public class UserController {
 
 
 
-   /* public User findByEmail(String email) throws Exception{
+    public User findByEmail(String email) throws Exception{
         User user = userRepository.findByEmail(email);
         if(user == null){
             throw new Exception("User not found with email" + email);

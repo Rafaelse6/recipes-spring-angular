@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RecipeServiceImplementation implements RecipeService{
+public class RecipeServiceImplementation implements RecipeService {
 
     @Autowired
     private RecipeRepository recipeRepository;
@@ -24,8 +24,8 @@ public class RecipeServiceImplementation implements RecipeService{
 
     @Override
     public Recipe findRecipeById(Long id) throws Exception {
-       Optional<Recipe> opt = recipeRepository.findById(id);
-        if(opt.isPresent()){
+        Optional<Recipe> opt = recipeRepository.findById(id);
+        if (opt.isPresent()) {
             return opt.get();
         }
         throw new Exception("Recipe not found with id: " + id);
@@ -45,15 +45,15 @@ public class RecipeServiceImplementation implements RecipeService{
 
     @Override
     public Recipe updateRecipe(Recipe recipe, Long id) throws Exception {
-       Recipe oldRecipe = findRecipeById(id);
+        Recipe oldRecipe = findRecipeById(id);
 
-       if(recipe.getTitle() != null){
-           oldRecipe.setTitle(recipe.getTitle());
-       }
-       if(recipe.getImage() != null){
-           oldRecipe.setImage(recipe.getImage());
-       }
-        if(recipe.getDescription() != null){
+        if (recipe.getTitle() != null) {
+            oldRecipe.setTitle(recipe.getTitle());
+        }
+        if (recipe.getImage() != null) {
+            oldRecipe.setImage(recipe.getImage());
+        }
+        if (recipe.getDescription() != null) {
             oldRecipe.setDescription(recipe.getDescription());
         }
 
@@ -69,14 +69,19 @@ public class RecipeServiceImplementation implements RecipeService{
 
     @Override
     public Recipe likeRecipe(Long recipeId, User user) throws Exception {
-        Recipe recipe = findRecipeById(recipeId);
+        try {
+            Recipe recipe = findRecipeById(recipeId);
 
-        if(recipe.getLikes().contains(user.getId())){
-            recipe.getLikes().remove(user.getId());
-        }else {
-            recipe.getLikes().add(user.getId());
+            if (recipe.getLikes().contains(user.getId())) {
+                recipe.getLikes().remove(user.getId());
+            } else {
+                recipe.getLikes().add(user.getId());
+            }
+
+            return recipeRepository.save(recipe);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("An error occurred while toggling like for recipe with ID: " + recipeId);
         }
-
-        return recipe;
     }
 }

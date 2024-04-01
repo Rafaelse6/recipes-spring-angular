@@ -4,19 +4,19 @@
       <div class="front">
         <img
           src="https://images.pexels.com/photos/2890387/pexels-photo-2890387.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt=""
+          alt="front"
         />
         <div class="text">
           <span class="text-1">
-            Share, Savor and Create: Your Recipe Haven Awaits!
+            Share,Savor,and create: Your Recipe Haven Awaits!!!
           </span>
-          <span>Let's get connected</span>
+          <span class="text-2">Let's get connected</span>
         </div>
       </div>
       <div class="back">
         <img
           src="https://images.pexels.com/photos/3771106/pexels-photo-3771106.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt=""
+          alt="back"
         />
       </div>
     </div>
@@ -24,11 +24,10 @@
       <div class="form-content h-full">
         <div class="signup-form">
           <h1 class="text-lg font-bold text-center pb-8">SignUp</h1>
-
           <form
-            [formGroup]="registrationForm"
-            (ngSubmit)="handleRegister()"
             class=""
+            (ngSubmit)="handleRegister()"
+            [formGroup]="registrationForm"
           >
             <div class="mb-4">
               <mat-form-field class="w-full">
@@ -36,8 +35,8 @@
                 <input
                   matInput
                   placeholder="Full Name"
-                  formControlName="fullName"
-                  class="py-2 px-3 text-gray-200 mt-1 focus: shadow-outline"
+                  formControlName="fullname"
+                  class="py-2 px-3 text-gray-200 mt-1 focus:shadow-outline"
                 />
               </mat-form-field>
             </div>
@@ -47,9 +46,9 @@
                 <mat-label class="text-gray-200">Email</mat-label>
                 <input
                   matInput
-                  placeholder="email..."
+                  placeholder="email@example.com"
                   formControlName="email"
-                  class="py-2 px-3 text-gray-200 mt-1 focus: shadow-outline"
+                  class="py-2 px-3 text-gray-200 mt-1 focus:shadow-outline"
                 />
               </mat-form-field>
             </div>
@@ -61,10 +60,11 @@
                   matInput
                   placeholder="Password"
                   formControlName="password"
-                  class="py-2 px-3 text-gray-200 mt-1 focus: shadow-outline"
+                  class="py-2 px-3 text-gray-200 mt-1 focus:shadow-outline"
                 />
               </mat-form-field>
             </div>
+            <div class="mb-4"></div>
 
             <div>
               <button
@@ -77,19 +77,24 @@
               </button>
             </div>
           </form>
+          <div class="flex items-center gap-2 justify-center mt-10">
+            Have account?
+            <button mat-button color="primary" (click)="togglePanel()">
+              Sign In
+            </button>
+          </div>
         </div>
         <div class="login-form">
           <h1 class="text-lg font-bold text-center pb-8">Login</h1>
-
-          <form [formGroup]="loginForm" (ngSubmit)="handleLogin()" class="">
+          <form class="" (ngSubmit)="handleLogin()" [formGroup]="loginForm">
             <div class="mb-4">
               <mat-form-field class="w-full">
                 <mat-label class="text-gray-200">Email</mat-label>
                 <input
                   matInput
-                  placeholder="email..."
+                  placeholder="abc@xyz.com"
                   formControlName="email"
-                  class="py-2 px-3 text-gray-200 mt-1 focus: shadow-outline"
+                  class="py-2 px-3 text-gray-200 mt-1 focus:shadow-outline"
                 />
               </mat-form-field>
             </div>
@@ -101,10 +106,11 @@
                   matInput
                   placeholder="Password"
                   formControlName="password"
-                  class="py-2 px-3 text-gray-200 mt-1 focus: shadow-outline"
+                  class="py-2 px-3 text-gray-200 mt-1 focus:shadow-outline"
                 />
               </mat-form-field>
             </div>
+            <div class="mb-4"></div>
 
             <div>
               <button
@@ -117,6 +123,12 @@
               </button>
             </div>
           </form>
+          <div class="flex items-center gap-2 justify-center mt-10">
+            Don't have account?
+            <button mat-button color="primary" (click)="togglePanel()">
+              Register now
+            </button>
+          </div>
         </div>
       </div>
     </div>
